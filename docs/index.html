@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChennaiFloodUndersight — oversight for Chennai's flood-forecasting system</title>
+<meta name="description" content="Public audit of Chennai's ₹107.2-crore RTFF & SDSS flood-forecasting system: open-data mirror, station-freshness findings, forecast accountability.">
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --fg:#e6edf3; --mut:#8b949e; --acc:#58a6ff; --ok:#3fb950; --warn:#d29922; --bad:#f85149; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--fg); font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; max-width:980px; margin:0 auto; padding:2rem 1.2rem 4rem; }
+  a { color:var(--acc); text-decoration:none; } a:hover { text-decoration:underline; }
+  .tag { display:inline-block; font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--acc); border:1px solid #1f6feb55; border-radius:99px; padding:.15rem .7rem; margin-bottom:1rem; }
+  h1 { font-size:2rem; line-height:1.2; margin:.4rem 0 .6rem; }
+  .sub { color:var(--mut); font-size:1.05rem; margin-bottom:2rem; }
+  h2 { font-size:1.25rem; margin:2.2rem 0 .9rem; border-bottom:1px solid #21262d; padding-bottom:.4rem; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:.9rem; }
+  .card { background:var(--card); border:1px solid #21262d; border-radius:10px; padding:1rem 1.1rem; }
+  .card h3 { font-size:.95rem; margin-bottom:.4rem; }
+  .card p { color:var(--mut); font-size:.88rem; }
+  .card .n { font-size:1.5rem; font-weight:700; color:var(--fg); display:block; margin-bottom:.2rem; }
+  .stat { display:flex; gap:1rem; flex-wrap:wrap; margin:1rem 0; }
+  .stat div { background:var(--card); border:1px solid #21262d; border-radius:10px; padding:.8rem 1rem; flex:1 1 150px; }
+  .stat b { font-size:1.35rem; display:block; }
+  .stat span { color:var(--mut); font-size:.8rem; }
+  table { width:100%; border-collapse:collapse; margin:.8rem 0; font-size:.9rem; }
+  th,td { text-align:left; padding:.5rem .6rem; border-bottom:1px solid #21262d; }
+  th { color:var(--mut); font-weight:600; }
+  ul { padding-left:1.2rem; } li { margin:.35rem 0; }
+  .note { background:#161b2280; border-left:3px solid var(--warn); padding:.7rem 1rem; border-radius:0 8px 8px 0; color:var(--mut); font-size:.9rem; margin:1rem 0; }
+  footer { margin-top:3rem; padding-top:1rem; border-top:1px solid #21262d; color:var(--mut); font-size:.85rem; }
+</style>
+</head>
+<body>
+<span class="tag">UngalSoththu · ChennaiFloodUndersight</span>
+<h1>The flood machine, opened.</h1>
+<p class="sub">Chennai's ₹107.2-crore flood-forecasting system (RTFF &amp; SDSS) publishes 7 PDF bulletins as its entire public record. Its own GeoServer quietly serves <b>344 data layers</b> — 1.7 million sensor readings, flood footprints from 2005 and 2015, vendor contracts — to anyone who asks. We mirrored it, published it, and now we audit it.</p>
+
+<div class="stat">
+  <div><b>344</b><span>GeoServer layers (343 readable, anonymous)</span></div>
+  <div><b>1.72M</b><span>sensor readings mirrored</span></div>
+  <div><b>7</b><span>bulletins ever issued (Oct 2025 run)</span></div>
+  <div><b>0</b><span>data license, API docs, or forecast archive</span></div>
+</div>
+
+<h2>The open-data release — 2026-09-29</h2>
+<div class="grid">
+  <div class="card"><h3><a href="https://huggingface.co/datasets/CashlessConsumer/chennai-flood-monitor-transactions">Sensor transactions</a></h3>
+    <span class="n">1.72M rows</span><p>SRG rain (1976→2026), AWS/ARG rain+met, AWLR river levels + 33 station registries with AMC vendor-expiry fields. Parquet, PII-scrubbed.</p></div>
+  <div class="card"><h3><a href="https://huggingface.co/datasets/CashlessConsumer/chennaidss-gis-layers">GIS layer pack</a></h3>
+    <span class="n">181 layers</span><p>Wards, drainage network, waterways, tanks, bathymetry, forecast ensembles, crowdsourced reports (identities stripped). GeoParquet.</p></div>
+  <div class="card"><h3><a href="https://huggingface.co/datasets/CashlessConsumer/chennai-flood-history">Flood history</a></h3>
+    <span class="n">2005 · 2015 · 2020</span><p>NRSC 2015 flood extent (4,001 polygons), IRS 2005, GCC hotspots, ward depth tables, flood warnings.</p></div>
+  <div class="card"><h3><a href="https://huggingface.co/datasets/CashlessConsumer/chennai-flood-bulletins">Bulletins</a></h3>
+    <span class="n">7 PDFs</span><p>Every operational bulletin of the Oct 2025 run — observed rainfall, ECMWF/NCEPGFS forecasts, lake &amp; river levels, street inundation maps.</p></div>
+</div>
+<p style="margin-top:.8rem;color:var(--mut);font-size:.9rem">Companion rescue of the dead predecessor portal: <a href="https://huggingface.co/datasets/CashlessConsumer/chennai-rain-gauges">chennai-rain-gauges</a> — 34,050 GCC zone-gauge readings (2020–2023) incl. Cyclone Michaung's 639&nbsp;mm/24h peak.</p>
+
+<h2>What the mirror shows</h2>
+<table>
+  <tr><th>Finding</th><th>Evidence</th></tr>
+  <tr><td>16 of 38 dashboard rain stations stale on census day; Nungambakkam &amp; Meenambakkam-ISRO frozen at 2025-05-10</td><td>station table, 2026-09-29</td></tr>
+  <tr><td>Ward-level "forecast" is a static scenario dated 2021-08-11</td><td>layer property inspection</td></tr>
+  <tr><td>Machine-readable ARG feed bulk-frozen at Jan 2022 while dashboard reads 2026 — two pipelines</td><td>per-year row counts</td></tr>
+  <tr><td>Alert feed: zero rows ever served; no public API or RSS</td><td>API pulls</td></tr>
+  <tr><td>₹107.2 cr spent; no sanction order, contract split, O&M budget, or forecast-vs-observed record published</td><td>press figures + absence</td></tr>
+</table>
+
+<h2>Documents</h2>
+<ul>
+  <li><a href="https://github.com/LogicIncZo/chennai-flood-undersight/blob/main/REPORT.md">REPORT.md</a> — the full draft report (v0.1, iterating toward a LaTeX PDF)</li>
+  <li><a href="https://github.com/LogicIncZo/chennai-flood-undersight/blob/main/docs/LEGAL-NOTE.md">Legal note</a> — why mirroring public telemetry is lawful: facts aren't copyrightable, §52 fair dealing, NDSAP openness default, takedown posture</li>
+  <li><a href="https://github.com/LogicIncZo/chennai-flood-undersight/blob/main/AUDIT-PLAN.md">Audit plan</a> — Track A (technology/digital) · Track B (economics &amp; debt monitoring)</li>
+  <li><a href="https://github.com/LogicIncZo/chennai-flood-undersight/blob/main/DATA.md">DATA.md</a> · <a href="https://github.com/LogicIncZo/chennai-flood-undersight/blob/main/POSSIBILITIES.md">POSSIBILITIES.md</a></li>
+  <li><a href="wfs_census_2026-09-29.csv">Layer census CSV</a> · <a href="layer_diff_vs_2023archive.json">2023→2026 layer diff</a></li>
+</ul>
+
+<div class="note">Data mirrored from a public government portal (chennaifloodmonitor.tn.gov.in). Facts aren't copyrightable; our arrangements are CC BY 4.0; attribution everywhere; notice-and-takedown honored. Not affiliated with TNSMART/TN-DSS/WRD. Security findings go to CERT-In, not the feed.</div>
+
+<footer>ChennaiFloodUndersight — உங்கள் சொத்து, public data belongs to the public. <a href="https://github.com/LogicIncZo/chennai-flood-undersight">GitHub</a> · UngalSoththu desk of CashlessConsumer · 2026-09-29</footer>
+</body>
+</html>

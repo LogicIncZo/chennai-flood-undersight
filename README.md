@@ -29,3 +29,9 @@ Every number above is reproducible: full layer census in [`docs/wfs_census_2026-
 ## License & posture
 
 Data mirrored from a public government portal; we claim no added restrictions — released as-is for research, journalism, and civic use, with PII scrubbed. Official status remains with TNSDMA/WRD; we are unofficial by design. Security findings go to CERT-In, not the feed. உங்கள் சொத்து — public data belongs to the public.
+
+## Publishing
+
+- **GitHub Pages site:** https://logicinczo.github.io/chennai-flood-undersight/ (source: `docs/index.html`, served from main)
+- **Report:** `REPORT.md` — v0.1 draft, iterating; LaTeX PDF edition follows after review
+- **Legal note:** `docs/LEGAL-NOTE.md` — facts aren't copyrightable; §52 fair dealing; NDSAP default-open; CC BY 4.0 on our additions; notice-and-takedown posture

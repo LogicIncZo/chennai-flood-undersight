@@ -33,5 +33,6 @@ Data mirrored from a public government portal; we claim no added restrictions �
 ## Publishing
 
 - **GitHub Pages site:** https://logicinczo.github.io/chennai-flood-undersight/ (source: `docs/index.html`, served from main)
+- **Layer Atlas:** https://logicinczo.github.io/chennai-flood-undersight/maps/ — interactive map of all 344 GeoServer layers, loaded live via WFS from the government server (search by category, feature count, payload; export GeoJSON). Catalog snapshot + generator in `docs/maps/`.
 - **Report:** `REPORT.md` — v0.1 draft, iterating; LaTeX PDF edition follows after review
 - **Legal note:** `docs/LEGAL-NOTE.md` — facts aren't copyrightable; §52 fair dealing; NDSAP default-open; CC BY 4.0 on our additions; notice-and-takedown posture

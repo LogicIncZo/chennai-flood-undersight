@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layer Atlas — all 344 GeoServer layers on a map · ChennaiFloodUndersight</title>
+<meta name="description" content="Interactive viewer for the 344 layers Chennai's flood-forecasting GeoServer serves unadvertised — every one loadable, styled, exportable. Public data, mapped.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--line:#21262d;--fg:#e6edf3;--mut:#8b949e;--acc:#58a6ff;--ok:#3fb950;--warn:#d29922;--bad:#f85149;--chip:#1f6feb33}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column}
+header{padding:.7rem 1rem;border-bottom:1px solid var(--line);flex:0 0 auto;display:flex;gap:.8rem;align-items:baseline;flex-wrap:wrap}
+header h1{font-size:1.05rem}
+header a{color:var(--acc);text-decoration:none}
+header .mut{color:var(--mut);font-size:.8rem}
+#wrap{display:flex;flex:1;min-height:0}
+#side{width:400px;min-width:340px;max-width:520px;border-right:1px solid var(--line);display:flex;flex-direction:column;background:var(--bg)}
+#map{flex:1;background:#0b0e13}
+#map .leaflet-container{background:#0b0e13}
+#load{height:3px;background:var(--acc);width:0;transition:width .2s}
+#load.on{background:var(--warn)}
+#bar{padding:.6rem .8rem;border-bottom:1px solid var(--line)}
+#q{width:100%;background:var(--card);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:.5rem .7rem;font-size:.9rem}
+#q:focus{outline:1px solid var(--acc)}
+#chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem}
+.chip{font-size:.72rem;padding:.2rem .55rem;border-radius:99px;border:1px solid var(--line);color:var(--mut);cursor:pointer;user-select:none}
+.chip b{color:var(--fg)}
+.chip.on{background:var(--chip);border-color:var(--acc);color:var(--fg)}
+#list{flex:1;overflow-y:auto;padding:.4rem .5rem 1.5rem}
+.grp{margin:.7rem .3rem .25rem;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.row{display:flex;align-items:center;gap:.5rem;padding:.34rem .5rem;border-radius:7px;cursor:pointer;border:1px solid transparent}
+.row:hover{background:var(--card)}
+.row.act{background:#16233a;border-color:#1f6feb66}
+.dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;background:var(--c,#58a6ff)}
+.nm{flex:1;font-size:.82rem;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nm small{color:var(--mut)}
+.badge{font-size:.65rem;color:var(--mut);border:1px solid var(--line);border-radius:5px;padding:.05rem .35rem;flex:0 0 auto}
+.badge.zero{color:var(--warn);border-color:#d2992255}
+.badge.int{color:var(--bad);border-color:#f8514955}
+#status{padding:.45rem .8rem;border-top:1px solid var(--line);font-size:.75rem;color:var(--mut);min-height:2.1rem}
+#status b{color:var(--fg)}
+.err{color:var(--bad)}
+#legend{position:absolute;top:10px;right:10px;z-index:1000;background:rgba(13,17,23,.92);border:1px solid var(--line);border-radius:9px;padding:.55rem .7rem;max-width:240px;font-size:.75rem}
+#legend h4{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin-bottom:.3rem}
+#legend .li{display:flex;align-items:center;gap:.45rem;margin:.2rem 0}
+#legend .li span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#legend .li a{color:var(--bad);text-decoration:none;padding:0 .2rem}
+#legend .li .mini{width:10px;height:10px;border-radius:2px;flex:0 0 auto;background:var(--c)}
+#tblwrap{position:absolute;left:10px;bottom:10px;z-index:1000;background:rgba(13,17,23,.95);border:1px solid var(--line);border-radius:9px;max-width:min(680px,60vw);display:none}
+#tblwrap h4{font-size:.75rem;padding:.45rem .6rem;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:1rem}
+#tblwrap h4 a{color:var(--acc);text-decoration:none;font-weight:400;font-size:.72rem}
+#tblwrap .sc{max-height:200px;overflow:auto}
+#tbl{border-collapse:collapse;font-size:.7rem;white-space:nowrap}
+#tbl td,#tbl th{border-bottom:1px solid var(--line);padding:.18rem .45rem;text-align:left;color:var(--mut)}
+#tbl td{color:var(--fg)}
+.btn{background:var(--card);border:1px solid var(--line);color:var(--fg);border-radius:7px;padding:.3rem .6rem;font-size:.75rem;cursor:pointer}
+.btn:hover{border-color:var(--acc)}
+#gallery{padding:.5rem .8rem .2rem;border-bottom:1px solid var(--line)}
+#gallery .gt{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:.4rem}
+#gallery .gi{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:.25rem .65rem;margin:0 .3rem .35rem 0;cursor:pointer}
+#gallery .gi:hover{border-color:var(--acc)}
+@media(max-width:860px){#wrap{flex-direction:column}#side{width:100%;max-width:none;height:46vh;border-right:none;border-bottom:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Layer Atlas</h1>
+  <span class="mut">all <b>344</b> layers of <code style="color:var(--fg)">chennaifloodmonitor.tn.gov.in/geohorr/ChennaiDSS/ows</code> — live from the government's own GeoServer · <a href="../">← ChennaiFloodUndersight</a></span>
+</header>
+<div id="wrap">
+  <div id="side">
+    <div id="load"></div>
+    <div id="bar">
+      <input id="q" placeholder="Search 344 layers — try ‘awlr’, ‘ward’, ‘flood’, ‘school’…" autocomplete="off">
+      <div id="chips"></div>
+    </div>
+    <div id="gallery">
+      <div class="gt">Start here — the accountability set</div>
+      <span id="gbtns"></span>
+    </div>
+    <div id="list"></div>
+    <div id="status">Pick a layer to load it from the live server. Big layers load only the current view.</div>
+  </div>
+  <div id="map">
+    <div id="legend"><h4>Loaded layers <button class="btn" id="clear" style="float:right">clear all</button></h4><div id="lli"></div></div>
+    <div id="tblwrap"><h4><span id="tbltitle"></span><span><a href="#" id="dl">download GeoJSON</a> · <a href="#" id="cx">close</a></span></h4><div class="sc"><table id="tbl"></table></div></div>
+  </div>
+</div>
+<script>
+const CATALOG = /*__CATALOG__*/[];
+const GEOSERVER = "https://chennaifloodmonitor.tn.gov.in/geohorr/ChennaiDSS/ows";
+const CATLABEL = {admin:"Admin & land",stations:"Stations & sensors",forecast:"Forecast & model",flood:"Flood history",water:"Water bodies & drainage",infra:"Infra & offices",terrain:"Terrain & soil",other:"Internal / test tables"};
+const CATCOLOR = {admin:"#58a6ff",stations:"#3fb950",forecast:"#bc8cff",flood:"#f85149",water:"#39c5cf",infra:"#d29922",terrain:"#8b949e",other:"#e3b341"};
+const CATTAB = {waterbodies:"water",waterways:"water",bulletin:"other",internal:"other",other:"other"};
+const tab = l => CATTAB[l.cat]||l.cat;
+const layerColor = l => CATCOLOR[tab(l)]||'#58a6ff';
+const PRESETS = [
+ {n:"2015 flood extent (NRSC, 4,001 polys)",l:["ChennaiDSS:gis_flood_inundation_nrsc_flood_extent_2015"]},
+ {n:"2005 flood extent (IRS, 235)",l:["ChennaiDSS:gis_flood_inundation_irs_flood_extent_2005"]},
+ {n:"GCC 2015 flood hotspots (327)",l:["ChennaiDSS:gis_flood_hotspots_gcc_flood_hotspots_2015"]},
+ {n:"NEM 2020 hotspots (GCC, 53)",l:["ChennaiDSS:gis_flood_hotspots_gcc_flood_hotspots_nem_2020"]},
+ {n:"Ward depth scenario (static since 2021-08-11)",l:["ChennaiDSS:ward_waterdepth_minmax"]},
+ {n:"Crowdsourced reports Nov–Dec 2025 (173)",l:["ChennaiDSS:gis_crowdsourced"]},
+ {n:"All 5,841 lakes & reservoirs",l:["ChennaiDSS:Lakes_Reservoirs"]},
+];
+const byName = {}; CATALOG.forEach(l=>byName[l.name]=l);
+const map = L.map('map',{zoomControl:true}).setView([13.05,80.2],10);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(map);
+const active = new Map();
+const fmtMB = mb => mb==null?'':mb<0.01?'':'· ~'+(mb<1?mb.toFixed(2):mb<10?mb.toFixed(1):Math.round(mb))+' MB';
+function wfsURL(l,caps){
+  let bbox='';
+  if(caps){const b=map.getBounds();bbox=`&bbox=${b.getWest()},${b.getSouth()},${b.getEast()},${b.getNorth()},EPSG:4326`;}
+  const big=(l.count||0)>3000&&l.payloadMB>10;
+  return `${GEOSERVER}?service=WFS&version=2.0.0&request=GetFeature&typeNames=${l.name}&outputFormat=application/json&srsName=EPSG:4326${caps&&big?bbox:''}&count=${Math.min(l.count||5000,5000)}`;
+}
+function styleFor(cat,geom){
+  const c=CATCOLOR[cat]||'#58a6ff';
+  if(geom.includes('Polygon'))return{color:c,weight:1.5,fillColor:c,fillOpacity:.18};
+  if(geom.includes('Line'))return{color:c,weight:2.5,opacity:.85};
+  return{color:c,radius:4,weight:1,fillColor:c,fillOpacity:.85};
+}
+function firstGeom(gj){const f=gj.features[0];return f&&f.geometry?f.geometry.type:'Point';}
+function loadLayer(l){
+  if(active.has(l.name)){map.removeLayer(active.get(l.name).lyr);active.delete(l.name);renderActive();paintRow(l.name);return;}
+  const el=document.getElementById('status');
+  el.innerHTML=`Loading <b>${l.short}</b> …${(l.count||0)>3000&&l.payloadMB>10?' (big — clipping to current map view)':''}`;
+  document.getElementById('load').className='on';document.getElementById('load').style.width='35%';
+  const t0=performance.now();
+  const getJSON=(u,ms)=>{const ac=new AbortController();setTimeout(()=>ac.abort(),ms);return fetch(u,{signal:ac.signal}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();});};
+  getJSON(wfsURL(l,active.size>0),90000).catch(e1=>{if(e1.name==='AbortError')throw e1;return getJSON(wfsURL(l,active.size>0),90000);}).then(gj=>{
+    document.getElementById('load').style.width='100%';
+    setTimeout(()=>{document.getElementById('load').className='';document.getElementById('load').style.width='0';},600);
+    const got=gj.numberReturned!=null?gj.numberReturned:(gj.features?gj.features.length:0);
+    const lyr=L.geoJSON(gj,{style:()=>styleFor(tab(l),firstGeom(gj)),pointToLayer:(f,la)=>L.circleMarker(la,styleFor(tab(l),'Point')),onEachFeature:(f,p)=>{const keys=Object.keys(f.properties||{}).filter(k=>f.properties[k]!=null&&f.properties[k]!=='').slice(0,4);p.bindPopup('<b>'+l.short+'</b><br>'+keys.map(k=>k+': '+String(f.properties[k]).slice(0,80)).join('<br>'));}}).addTo(map);
+    active.set(l.name,{lyr,l,at:gj.features[0]?gj.features[0].properties:{}});
+    renderActive();paintRow(l.name);
+    try{map.fitBounds(lyr.getBounds().pad(.05),{maxZoom:13});}catch(e){}
+    const secs=((performance.now()-t0)/1000).toFixed(1);
+    const flags=[];if(l.count!=null&&got<l.count)flags.push(`capped ${got}/${l.count} — zoom in for the rest`);
+    el.innerHTML=`<b>${l.short}</b>: ${got.toLocaleString('en-IN')} features in ${secs}s${l.count===0?' — server again returned an empty layer':''}${flags.length?' · <span class="err">'+flags.join(' · ')+'</span>':''} · <a href="#" id="tblbtn">attributes</a> · <a href="${wfsURL(l,false)}" target="_blank">raw WFS</a>`;
+    document.getElementById('tblbtn').onclick=e=>{e.preventDefault();showTable(l,gj);};
+  }).catch(err=>{
+    document.getElementById('load').className='';document.getElementById('load').style.width='0';
+    el.innerHTML=`<span class="err">Failed: ${l.short} — ${err.message}.</span> ${err.message.includes('Failed to fetch')?'If this loads here but fails on your network, the government GeoServer is flaky from abroad — it answers reliably from Indian IPs (we verify via our Mumbai node).':'Server errors on some layers are preserved as logs in the <a href="https://huggingface.co/datasets/CashlessConsumer/chennaidss-gis-layers" target="_blank">HF mirror</a>.'}`;
+  });
+}
+function showTable(l,gj){
+  const rows=gj.features.slice(0,200);
+  const keys=[...new Set(rows.flatMap(f=>Object.keys(f.properties||{})))].slice(0,15);
+  document.getElementById('tbltitle').textContent=l.short+' — first '+rows.length+' features';
+  document.getElementById('tbl').innerHTML='<tr>'+keys.map(k=>'<th>'+k+'</th>').join('')+'</tr>'+rows.map(f=>'<tr>'+keys.map(k=>{const v=(f.properties||{})[k];return '<td>'+(v==null?'':String(v).slice(0,60))+'</td>';}).join('')+'</tr>').join('');
+  document.getElementById('dl').onclick=e=>{e.preventDefault();const b=new Blob([JSON.stringify(gj)],{type:'application/geo+json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=l.short.replace(/[^a-z0-9]+/gi,'-')+'.geojson';a.click();};
+  document.getElementById('tblwrap').style.display='block';
+}
+function renderActive(){
+  const el=document.getElementById('lli');
+  el.innerHTML=[...active.values()].map(({l})=>`<div class="li"><span class="mini" style="--c:${layerColor(l)}"></span><span title="${l.short}">${l.short}</span><a href="#" onclick="drop('${l.name}');return false">✕</a></div>`).join('')||'<div style="color:var(--mut)">none</div>';
+}
+window.drop=n=>{const l=byName[n];if(l&&active.has(n)){map.removeLayer(active.get(n).lyr);active.delete(n);renderActive();paintRow(n);}};
+function paintRow(n){const r=document.querySelector(`[data-layer="${CSS.escape(n)}"]`);if(r)r.classList.toggle('act',active.has(n));}
+function renderList(){
+  const q=document.getElementById('q').value.toLowerCase().trim();
+  const cats=[...document.querySelectorAll('.chip.on')].map(c=>c.dataset.cat);
+  const el=document.getElementById('list');el.innerHTML='';let shown=0;
+  const order=['flood','stations','forecast','water','admin','infra','terrain','other'];
+  for(const cat of order){
+    if(cats.length&&!cats.includes(cat))continue;
+    const ls=CATALOG.filter(l=>tab(l)===cat&&(!q||l.name.toLowerCase().includes(q)||l.title.toLowerCase().includes(q)));
+    if(!ls.length)continue;
+    const h=document.createElement('div');h.className='grp';h.textContent=`${CATLABEL[cat]} · ${ls.length}`;el.appendChild(h);
+    for(const l of ls){
+      shown++;
+      const d=document.createElement('div');d.className='row';d.dataset.layer=l.name;
+      const badges=l.count===0?'<span class="badge zero">empty</span>':['internal','other'].includes(l.cat)?'<span class="badge int">internal</span>':`<span class="badge">${l.count!=null?l.count.toLocaleString('en-IN'):'?'}${fmtMB(l.payloadMB)?' '+fmtMB(l.payloadMB):''}</span>`;
+      d.innerHTML=`<span class="dot" style="--c:${CATCOLOR[cat]}"></span><span class="nm">${l.title} <small>${l.short}</small></span>${badges}`;
+      d.onclick=()=>loadLayer(l);
+      if(active.has(l.name))d.classList.add('act');
+      el.appendChild(d);
+    }
+  }
+  if(!shown)el.innerHTML='<div class="grp">No layers match.</div>';
+}
+const chipsEl=document.getElementById('chips');
+Object.keys(CATLABEL).forEach(cat=>{
+  const n=CATALOG.filter(l=>tab(l)===cat).length;
+  const c=document.createElement('span');c.className='chip';c.dataset.cat=cat;c.innerHTML=`${CATLABEL[cat]} <b>${n}</b>`;
+  c.onclick=()=>{c.classList.toggle('on');renderList();};
+  chipsEl.appendChild(c);
+});
+document.getElementById('q').addEventListener('input',renderList);
+document.getElementById('clear').onclick=()=>{for(const[n,{lyr}]of active){map.removeLayer(lyr);paintRow(n);}active.clear();renderActive();document.getElementById('tblwrap').style.display='none';};
+document.getElementById('cx').onclick=e=>{e.preventDefault();document.getElementById('tblwrap').style.display='none';};
+const gbtns=document.getElementById('gbtns');
+PRESETS.forEach(p=>{
+  const b=document.createElement('span');b.className='gi';b.textContent=p.n;
+  b.onclick=()=>{p.l.forEach(n=>{const l=byName[n];if(l&&!active.has(n))loadLayer(l);});};
+  gbtns.appendChild(b);
+});
+renderList();renderActive();
+</script>
+</body>
+</html>

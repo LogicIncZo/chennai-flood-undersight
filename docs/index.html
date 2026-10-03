@@ -64,6 +64,7 @@
   <tr><td>Machine-readable ARG feed bulk-frozen at Jan 2022 while dashboard reads 2026 — two pipelines</td><td>per-year row counts</td></tr>
   <tr><td>Alert feed: zero rows ever served; no public API or RSS</td><td>API pulls</td></tr>
   <tr><td>GeoServer sends three stacked <code>Access-Control-Allow-Origin</code> headers (+ <code>allow-credentials:true</code>) — every third-party browser app gets "Failed to fetch"; only the same-origin dashboard works</td><td>response header dump, 2026-10-03</td></tr>
+  <tr><td>GetCapabilities declares wrong bounding boxes for 236/344 layers (Chennai data placed near lon 2.7) while GetFeature coordinates are correct — GIS clients trusting declared extents misplace ~69% of the catalogue</td><td>GetCapabilities XML vs GetFeature samples, 2026-10-03</td></tr>
   <tr><td>₹107.2 cr spent; no sanction order, contract split, O&M budget, or forecast-vs-observed record published</td><td>press figures + absence</td></tr>
 </table>
 

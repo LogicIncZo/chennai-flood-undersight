@@ -67,7 +67,14 @@ bulletins. Baseline for the 58-layer diff.
   with "Failed to fetch" while curl works from anywhere (incl. abroad). The atlas
   ships a read-only relay (`cashlessconsumer.zo.space/api/cfm-wfs`) as fallback.
   Net effect: the portal is only consumable same-origin — a quiet interoperability
-  moat, whether intended or not.
+  moat, whether intended or not.- GetCapabilities advertises a wrong `WGS84BoundingBox` for 236 of 344 layers
+  (e.g. `gis_lulc_chennai_basin_lulc_cartosat_aoi` declares lon 2.73–3.86 for data
+  that actually lives at lon 79.3–80.4) — while `GetFeature` returns correctly
+  placed coordinates for the same layers. The server's layer metadata is broken;
+  the data is fine. Any GIS client that trusts declared extents (QGIS 'add by
+  extent', zoom-to-layer) will misplace or miss ~69% of the catalogue. The atlas
+  nulls garbage bboxes and zooms from fetched geometry instead.
+  Verified 2026-10-03: raw GetCapabilities XML vs count=1 GetFeature samples.
 - SRG and AWLR transaction endpoints stall for recent months (server-side) — full
   history only through Feb/Apr 2026 at pull time.
 - 1 of 344 layers (`aws_new`) errors; `giswardmesh` is empty; a few registry rows carry

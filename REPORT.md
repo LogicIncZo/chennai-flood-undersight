@@ -2,8 +2,8 @@
 
 ## A public audit of Chennai's ₹107.2-crore Real-Time Flood Forecasting & Spatial Decision Support System
 
-**UngalSoththu — AI-native desk** · Report draft v0.2 · 2026-10-03 (v0.1 2026-09-29 · v0.2 adds §5 international financing)
-**Companion data release:** four Hugging Face datasets (links in §3) + the 2026-12 rescue archive `chennai-rain-gauges` · **Media-claims register:** `file MEDIA-CLAIMS.md` (every public success/impact reference, claim-typed and cross-checked)
+**UngalSoththu — AI-native desk** · Report draft v0.3 · 2026-10-03 (v0.2 §5 financing · v0.3 media-claims register + data catalogue)
+**Companion data release:** four Hugging Face datasets (links in §3) + the 2026-12 rescue archive `chennai-rain-gauges` · **Media-claims register:** `file MEDIA-CLAIMS.md` (every public success/impact reference, claim-typed and cross-checked) · **Data catalogue:** `file DATA-CATALOGUE.md` (coverage reconciliation + per-layer freshness)
 **Evidence grades used:** **A** = artifact captured in our archive (reproducible command in appendix) · **B** = captured + corroborated by dated press · **C** = press-reported only, not independently verified · **D** = inference from evidence (reasoning stated)
 
 ---
@@ -62,7 +62,7 @@ Plus the predecessor rescue: `chennai-rain-gauges` — 34,050 GCC zone-gauge rea
 Dashboard station table, 2026-09-29: 38 stations listed, 22 fresh. Nungambakkam, Meenambakkam-ISRO, Madhavaram-AMFU and Ennore Port frozen at **2025-05-10**; RIMC Lab at **2024-10-21**. Chennai's historic IMD reference gauge (Nungambakkam) — the yardstick for every flood comparison since 2015 — has no current public reading on the system built to provide exactly that.
 
 **F3 — Two pipelines, one visible. \[A\]**
-The machine-readable ARG transaction table tops out at 2022-01-31 (bulk 2018–2021), while the dashboard API returns 2026-09 readings through a different pipeline. The "open" layer and the "operational" layer are not the same data path — so even a diligent citizen reading the open feed gets a four-year-stale city.
+The machine-readable ARG transaction table tops out in 2022 (bulk 2018–2021, then 3 stragglers, latest 2022-09-06), while the dashboard API returns 2026-09 readings through a different pipeline. The "open" layer and the "operational" layer are not the same data path — so even a diligent citizen reading the open feed gets a four-year-stale city.
 
 **F4 — The ward "forecast" is a 2021 scenario. \[A\]**
 `ward_waterdepth_minmax`: 200 wards, every depth stamped **2021-08-11**. Street-level inundation, as exposed to the public record, is a static lookup from five monsoons ago — not a live model output. (The live street-flood output exists, but only as bulletin PDF maps during activations.)
@@ -178,7 +178,7 @@ Point-in-time capture (2026-09-29); activations since Oct 2025 may have changed 
 | 5 | 22/38 dashboard stations fresh on census day | A | API pull, 2026-09-29 |
 | 6 | Nungambakkam/Meenambakkam-ISRO/Madhavaram frozen 2025-05-10 | A | station `date_time` fields |
 | 7 | Ward depth layer static, dated 2021-08-11 | A | layer property inspection |
-| 8 | ARG WFS bulk ends Jan 2022 | A | year group-by (2022: 3 rows) |
+| 8 | ARG WFS bulk ends Jan 2022 (3 stragglers to 2022-09-06) | A | year group-by (2022: 3 rows, max 2022-09-06) |
 | 9 | Alert feed empty; 7 bulletins total | A | API pulls |
 | 10 | ₹107.2 cr / 4,974 km² / 5 models / Oct 2025 launch | C | The Hindu 2025-10-22; Business Standard |
 | 11 | Ennore 56 cm/3 days; Red Hills shutters 6th time (Dec 2025) | B | The Hindu 2025-12-03 vs our sensor/crowd layers |

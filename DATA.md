@@ -61,6 +61,13 @@ bulletins. Baseline for the 58-layer diff.
   uncalibrated sensors ship raw.
 - Nungambakkam-class stations frozen in the time series since 2025-05 — "flagship" ≠
   "working".
+- The GeoServer CORS filter stack triples `Access-Control-Allow-Origin` (`*`, origin
+  echo, `*`) with `Access-Control-Allow-Credentials: true` — per the fetch spec,
+  browsers must reject that, so *any* third-party browser app calling the API dies
+  with "Failed to fetch" while curl works from anywhere (incl. abroad). The atlas
+  ships a read-only relay (`cashlessconsumer.zo.space/api/cfm-wfs`) as fallback.
+  Net effect: the portal is only consumable same-origin — a quiet interoperability
+  moat, whether intended or not.
 - SRG and AWLR transaction endpoints stall for recent months (server-side) — full
   history only through Feb/Apr 2026 at pull time.
 - 1 of 344 layers (`aws_new`) errors; `giswardmesh` is empty; a few registry rows carry

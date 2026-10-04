@@ -1,0 +1,353 @@
+{
+ "title": "Abbreviations used in the 200-question bank",
+ "terms": [
+  {
+   "abbr": "RTFF",
+   "full": "Real-Time Flood Forecasting (& SDSS = Spatial Decision Support System)",
+   "note": "the ₹107.2-crore Chennai system this bank interrogates; portal = Chennai Flood Monitor",
+   "pattern": "RTFF(?:[- ]&[ -]SDSS|[-/]SDSS)?"
+  },
+  {
+   "abbr": "PDGF",
+   "full": "Project Development Grant Fund",
+   "note": "GoTN's technical-assistance grant fund at TNUIFSL (since 1 Apr 2015) — the pipe that paid for the system (REPORT §5)",
+   "pattern": "PDGF"
+  },
+  {
+   "abbr": "TNUIFSL",
+   "full": "Tamil Nadu Urban Infrastructure Financial Services Ltd",
+   "note": "state company managing TNUDF/PDGF; executed the project",
+   "pattern": "TNUIFSL"
+  },
+  {
+   "abbr": "TNUDF",
+   "full": "Tamil Nadu Urban Development Fund",
+   "note": "state urban fund (1996), World Bank-seeded; TNUDF interest ploughs back into PDGF",
+   "pattern": "TNUDF"
+  },
+  {
+   "abbr": "TNUDP",
+   "full": "Tamil Nadu Urban Development Project",
+   "note": "World Bank series I–III; TNUDP III ($300M, FY2006) seeded PDGF's grant funds",
+   "pattern": "TNUDP"
+  },
+  {
+   "abbr": "TNSUDP",
+   "full": "Tamil Nadu Sustainable Urban Development Project",
+   "note": "$400M IBRD loan (2015); umbrella for TNUIFSL's TA pipeline",
+   "pattern": "TNSUDP"
+  },
+  {
+   "abbr": "TNCRUDP",
+   "full": "Tamil Nadu Climate Resilient Urban Development Program",
+   "note": "current $300M World Bank program (P179189, Dec 2023) still buying RTFF aftercare",
+   "pattern": "TNCRUDP"
+  },
+  {
+   "abbr": "IBRD",
+   "full": "International Bank for Reconstruction and Development",
+   "note": "the World Bank's lending arm; lends only to sovereigns",
+   "pattern": "IBRD"
+  },
+  {
+   "abbr": "WB",
+   "full": "World Bank",
+   "note": "the lender behind the PDGF chain; IBRD is its lending arm",
+   "pattern": "WB"
+  },
+  {
+   "abbr": "PforR",
+   "full": "Program-for-Results",
+   "note": "WB instrument that disburses only against independently verified results",
+   "pattern": "PforR"
+  },
+  {
+   "abbr": "IPF",
+   "full": "Investment Project Financing",
+   "note": "WB instrument for specific investments; funds TNCRUDP's TA component",
+   "pattern": "IPF"
+  },
+  {
+   "abbr": "DLR",
+   "full": "Disbursement-Linked Result",
+   "note": "the verified indicator a PforR pays against — where forecast accuracy should have sat",
+   "pattern": "DLR"
+  },
+  {
+   "abbr": "SHORE",
+   "full": "Strengthening Coastal Resilience and the Economy",
+   "note": "$212.64M WB loan (2025, TN+Karnataka); cited for observed lending terms",
+   "pattern": "SHORE"
+  },
+  {
+   "abbr": "KfW",
+   "full": "German development bank (Kreditanstalt für Wiederaufbau)",
+   "note": "one of PDGF's funding sources",
+   "pattern": "KfW"
+  },
+  {
+   "abbr": "JICA",
+   "full": "Japan International Cooperation Agency",
+   "note": "PDGF funding source",
+   "pattern": "JICA"
+  },
+  {
+   "abbr": "ADB",
+   "full": "Asian Development Bank",
+   "note": "PDGF funding source",
+   "pattern": "ADB"
+  },
+  {
+   "abbr": "CRA",
+   "full": "Commissionerate of Revenue Administration",
+   "note": "overall supervisor of the system",
+   "pattern": "CRA"
+  },
+  {
+   "abbr": "TNDRRA",
+   "full": "Tamil Nadu Disaster Risk Reduction Agency",
+   "note": "CRA's agency; hosts the Hydro-Modelling Control Room",
+   "pattern": "TNDRRA"
+  },
+  {
+   "abbr": "GCC",
+   "full": "Greater Chennai Corporation",
+   "note": "city government; runs its own ICCC/EWS (separate from RTFF)",
+   "pattern": "GCC"
+  },
+  {
+   "abbr": "WRD",
+   "full": "Water Resources Department",
+   "note": "owns rivers/lakes/AWLRs; recovery centre at Chepauk",
+   "pattern": "WRD"
+  },
+  {
+   "abbr": "PWD",
+   "full": "Public Works Department",
+   "note": "WRD's parent; PWD tanks and SRG network",
+   "pattern": "PWD"
+  },
+  {
+   "abbr": "TNSDMA",
+   "full": "Tamil Nadu State Disaster Management Authority",
+   "note": "state disaster authority behind TNSMART",
+   "pattern": "TNSDMA"
+  },
+  {
+   "abbr": "TNSMART",
+   "full": "TN System for Multi-hazard Potential Impact Assessment and Emergency Response Tracking",
+   "note": "web decision-support platform RTFF & SDSS feeds",
+   "pattern": "TNSMART"
+  },
+  {
+   "abbr": "TN-Alert",
+   "full": "TN-Alert mobile app",
+   "note": "the public channel for flood warnings; no API/SMS spec public",
+   "pattern": "TN-Alert",
+   "alt": [
+    "TN Alert"
+   ]
+  },
+  {
+   "abbr": "IFMC",
+   "full": "Integrated Flood Management Centre",
+   "note": "centre announced Oct 2026 re-promising street-level 3-day forecasts (MEDIA-CLAIMS pattern 3)",
+   "pattern": "IFMC"
+  },
+  {
+   "abbr": "HMCR",
+   "full": "Hydro-Modelling Control Room",
+   "note": "the system's brain, at the SEOC in Ezhilagam",
+   "pattern": "HMCR"
+  },
+  {
+   "abbr": "SEOC",
+   "full": "State Emergency Operation Centre",
+   "note": "state crisis room, Ezhilagam, Chennai",
+   "pattern": "SEOC"
+  },
+  {
+   "abbr": "ICCC",
+   "full": "Integrated Command and Control Centre",
+   "note": "GCC's control room (Ripon Buildings) — a different system from RTFF",
+   "pattern": "ICCC"
+  },
+  {
+   "abbr": "EWS",
+   "full": "Early Warning System",
+   "note": "GCC's ICCC app that got the credit during Ditwah",
+   "pattern": "EWS"
+  },
+  {
+   "abbr": "LoGS",
+   "full": "Lake and Reservoir Operation Guidance System",
+   "note": "advises WRD on shutter releases to cut flood peaks",
+   "pattern": "LoGS"
+  },
+  {
+   "abbr": "ARG",
+   "full": "Automatic Rain Gauge",
+   "note": "telemetry rain station; 328 in the registries (existing + proposed)",
+   "pattern": "ARG"
+  },
+  {
+   "abbr": "AWS",
+   "full": "Automatic Weather Station",
+   "note": "weather sensor (not Amazon here); 39 existing",
+   "pattern": "AWS"
+  },
+  {
+   "abbr": "AWLR",
+   "full": "Automatic Water Level Recorder",
+   "note": "river/canal/tank level sensor; the one feed current to Aug 2026",
+   "pattern": "AWLR"
+  },
+  {
+   "abbr": "SRG",
+   "full": "Self-Recording Rain Gauge",
+   "note": "gauge series with records back to 1976; open data stalls Feb 2026",
+   "pattern": "SRG"
+  },
+  {
+   "abbr": "NWP",
+   "full": "Numerical Weather Prediction",
+   "note": "the forecast models fused by the system (five)",
+   "pattern": "NWP"
+  },
+  {
+   "abbr": "ECMWF",
+   "full": "European Centre for Medium-Range Weather Forecasts",
+   "note": "ensemble model used in the Oct-2025 bulletins",
+   "pattern": "ECMWF"
+  },
+  {
+   "abbr": "NCEP",
+   "full": "US National Centers for Environmental Prediction",
+   "note": "source of the GFS model",
+   "pattern": "NCEP",
+   "alt": [
+    "NCEP-GFS",
+    "GFS"
+   ]
+  },
+  {
+   "abbr": "UKMet",
+   "full": "UK Met Office",
+   "note": "one of the five fused models",
+   "pattern": "UKMet",
+   "alt": [
+    "UK Met Office model",
+    "UK Met"
+   ]
+  },
+  {
+   "abbr": "NCMRWF",
+   "full": "National Centre for Medium Range Weather Forecasting",
+   "note": "India's model centre (Noida)",
+   "pattern": "NCMRWF"
+  },
+  {
+   "abbr": "IMD",
+   "full": "India Meteorological Department",
+   "note": "the official forecaster — got the warnings credit, not RTFF",
+   "pattern": "IMD"
+  },
+  {
+   "abbr": "RMC",
+   "full": "Regional Meteorological Centre (Chennai)",
+   "note": "IMD's Tamil Nadu arm issuing alerts",
+   "pattern": "RMC"
+  },
+  {
+   "abbr": "CWC",
+   "full": "Central Water Commission",
+   "note": "national flood-warning agency; issued the Ditwah flood warning",
+   "pattern": "CWC"
+  },
+  {
+   "abbr": "NRSC",
+   "full": "National Remote Sensing Centre",
+   "note": "mapped the 2015 flood extent (4,001 polygons)",
+   "pattern": "NRSC"
+  },
+  {
+   "abbr": "NDMA",
+   "full": "National Disaster Management Authority",
+   "note": "national apex disaster body",
+   "pattern": "NDMA"
+  },
+  {
+   "abbr": "AMC",
+   "full": "Annual Maintenance Contract",
+   "note": "vendor upkeep agreements; 66 stations flagged, expiry dates known for ~6",
+   "pattern": "AMC"
+  },
+  {
+   "abbr": "SECON-JBA",
+   "full": "consultant joint venture",
+   "note": "SECON Pvt Ltd (India) + JBA Consulting (UK); planned, built, ran the system",
+   "pattern": "SECON[-–]JBA",
+   "alt": [
+    "SECON–JBA",
+    "SECON JBA"
+   ]
+  },
+  {
+   "abbr": "IIT-M",
+   "full": "IIT Madras",
+   "note": "technical supervisor; also runs its own modelling + citizen-science research line",
+   "pattern": "IIT-M(?:adras)?",
+   "alt": [
+    "IIT Madras"
+   ]
+  },
+  {
+   "abbr": "DEM",
+   "full": "Digital Elevation Model",
+   "note": "bare-earth terrain model; WB-funded satellite DEM/DSM work feeds the model",
+   "pattern": "DEM"
+  },
+  {
+   "abbr": "DSM",
+   "full": "Digital Surface Model",
+   "note": "terrain + buildings model",
+   "pattern": "DSM"
+  },
+  {
+   "abbr": "NEM",
+   "full": "Northeast Monsoon",
+   "note": "October–December — Chennai's flood season",
+   "pattern": "NEM"
+  },
+  {
+   "abbr": "RTI",
+   "full": "Right to Information (Act 2005)",
+   "note": "the main accountability tool; bank lists the exact asks",
+   "pattern": "RTI"
+  },
+  {
+   "abbr": "CAG",
+   "full": "Comptroller and Auditor General",
+   "note": "can performance-audit the ₹107.2-crore spend",
+   "pattern": "CAG"
+  },
+  {
+   "abbr": "CFLOWS",
+   "full": "Mumbai flood forecasting system",
+   "note": "IIT-Bombay system for MCGM — the usual benchmark comparison",
+   "pattern": "CFLOWS"
+  },
+  {
+   "abbr": "NDSAP",
+   "full": "National Data Sharing and Accessibility Policy (2012)",
+   "note": "makes non-sensitive government data open by default",
+   "pattern": "NDSAP"
+  },
+  {
+   "abbr": "GIS",
+   "full": "Geographic Information System",
+   "note": "map layers — 181 of them mirrored from the GeoServer",
+   "pattern": "GIS"
+  }
+ ]
+}

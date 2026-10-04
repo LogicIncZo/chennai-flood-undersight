@@ -1,4 +1,16 @@
 {
- "responses": {},
- "updatedAt": "2026-10-04T01:01:00Z"
+ "responses": {
+  "1": {
+   "rel": 5,
+   "updatedAt": 1791077762294,
+   "qual": 2,
+   "comment": "Add state of  RTFF and  SDSS and its possibilities"
+  },
+  "2": {
+   "rel": 5,
+   "updatedAt": 1791078689599,
+   "qual": 4
+  }
+ },
+ "updatedAt": "2026-10-04T01:51:31.951Z"
 }
